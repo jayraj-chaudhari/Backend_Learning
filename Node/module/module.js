@@ -8,14 +8,13 @@ console.log(module.exports);
 //Node uses CommonJS module system, which is different from the ES6 module system used in browsers.
 //  In CommonJS, each file is treated as a separate module, and you can export values using `module.exports` or `exports`.
 //  You can also import other modules using `require()`.
-//every file in Node is treated as a module, and the variables defined in one module are not accessible in another module unless they are explicitly exported and imported. 
+//every file in Node is treated as a module, and the variables defined in one module are not accessible in another module unless they are explicitly exported and imported.
 // This allows for better encapsulation and modularity in Node applications.
 //export is a js object which we can see in module property(module.exports)
 
 //EXPORTING
 const name = "John";
 const age = 30;
-
 module.exports = {
   name,
   age,
@@ -35,6 +34,6 @@ console.log(module.exports);
 
 //in single file - circular dependency
 
-const autosay = ()=> console.log("Auto saying hello!");
+const autosay = () => console.log("Auto saying hello!");
 
 autosay();
