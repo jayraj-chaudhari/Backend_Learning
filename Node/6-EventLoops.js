@@ -6,3 +6,5 @@
 //offloading operations to the system kernel whenever possible, which allows Node.js to handle multiple requests without blocking the main thread.
 
 //server.listen() and request.on() are asynchronous operations that are handled by the event loop.
+// The event loop continuously checks for tasks to execute, such as incoming requests,
+//  and processes them in a non-blocking manner.
