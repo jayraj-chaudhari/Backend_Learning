@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "4-http.js",
   "scripts": {
-    "start": "node 5-npm.js",
+    "start": "node 7-AsyncAwait.js",
     "dev": "nodemon 5-npm.js"
   },
   "dependencies": {
