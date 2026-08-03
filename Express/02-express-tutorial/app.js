@@ -5,6 +5,35 @@ const app = express();
 
 // setup static and middleware
 app.use(express.static("./public"));
+const { people } = require("./data");
+
+// Example API: return 1..N pages of `people` in one request
+app.get("/api/people", (req, res) => {
+  const page = Math.max(1, parseInt(req.query.page) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit) || 10);
+  let pages = Math.max(1, parseInt(req.query.pages) || 1);
+  const MAX_PAGES = 5;
+  pages = Math.min(pages, MAX_PAGES);
+
+  const totalLimit = limit * pages;
+  const offset = (page - 1) * limit;
+
+  const items = people.slice(offset, offset + totalLimit);
+
+  // split into page-sized buckets for frontend convenience
+  const pagesArray = [];
+  for (let i = 0; i < pages; i++) {
+    pagesArray.push(items.slice(i * limit, (i + 1) * limit));
+  }
+
+  res.json({
+    page,
+    limit,
+    pagesRequested: pages,
+    returnedItems: items.length,
+    pages: pagesArray,
+  });
+});
 
 // app.get('/', (req, res) => {
 //   res.sendFile(path.resolve(__dirname, './navbar-app/index.html'))

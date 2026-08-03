@@ -1,0 +1,79 @@
+REST API
+
+GET        api/tasks        get all tasks
+POST       api/tasks        create task
+GET        api/tasks/:id    get task
+PUT/PATCH  api/tasks/:id    update task
+DELETE     api/tasks/:id    delete task
+
+Notes:
+- Base URL: /api (e.g. /api/tasks)
+- Resource: `tasks` (CRUD operations shown above)
+
+Endpoints (details):
+
+GET /api/tasks
+- Description: Retrieve a paginated list of tasks.
+- Query params: `page` (number), `limit` (number), `status` (open|done), `search` (string)
+- Response: `200 OK` with JSON: { "tasks": [ ... ], "page": 1, "limit": 10, "total": 42 }
+
+POST /api/tasks
+- Description: Create a new task.
+- Body (JSON): { "title": "string", "description": "string", "completed": false }
+- Response: `201 Created` with created resource in body.
+
+GET /api/tasks/:id
+- Description: Retrieve a single task by `id`.
+- Response: `200 OK` with task object, or `404 Not Found` if missing.
+
+PUT /api/tasks/:id
+- Description: Replace an entire task resource. Client provides full object.
+- Response: `200 OK` with updated task.
+
+PATCH /api/tasks/:id
+- Description: Partially update a task (only the fields provided).
+- Response: `200 OK` with updated task.
+
+DELETE /api/tasks/:id
+- Description: Delete a task.
+- Response: `204 No Content` on success, or `404 Not Found`.
+
+Common status codes:
+- `200` OK — successful GET/PUT/PATCH
+- `201` Created — successful POST
+- `204` No Content — successful DELETE
+- `400` Bad Request — validation or malformed request
+- `401` Unauthorized — missing/invalid auth
+- `403` Forbidden — insufficient permissions
+- `404` Not Found — resource doesn't exist
+- `422` Unprocessable Entity — validation errors
+- `500` Internal Server Error — unexpected server issue
+
+Error response format (suggested):
+{
+	"error": {
+		"code": "VALIDATION_ERROR",
+		"message": "Title is required",
+		"details": { "title": "required" }
+	}
+}
+
+Examples (curl):
+- List tasks:
+	curl -s "http://localhost:3000/api/tasks?page=1&limit=10"
+- Create task:
+	curl -s -X POST http://localhost:3000/api/tasks \
+		-H "Content-Type: application/json" \
+		-d '{"title":"Buy milk","description":"1L","completed":false}'
+- Update task (PATCH):
+	curl -s -X PATCH http://localhost:3000/api/tasks/123 \
+		-H "Content-Type: application/json" \
+		-d '{"completed":true}'
+
+Best practices / Notes:
+- Use consistent JSON response shapes and error codes.
+- Validate input and return helpful validation errors (`422`).
+- Use pagination for list endpoints; provide `total` and `page` metadata.
+- Protect endpoints with authentication (e.g., JWT) and rate limiting.
+- Use proper HTTP verbs and idempotent semantics for PUT vs PATCH.
+- Consider HATEOAS links or standard API docs (OpenAPI/Swagger).
