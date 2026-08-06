@@ -13,6 +13,8 @@ app.use(express.json());
 
 app.use("/api/people", people); //default route for people.js
 app.use("/login", auth); //default route for auth.js
+//mount the entire router file
+//(url path,)
 
 app.listen(5000, () => {
   console.log("Server is listening on port 5000....");

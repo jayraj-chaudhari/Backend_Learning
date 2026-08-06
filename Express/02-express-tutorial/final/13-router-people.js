@@ -20,3 +20,6 @@ router.route("/postman").post(createPersonPostman);
 router.route("/:id").put(updatePerson).delete(deletePerson);
 
 module.exports = router;
+
+//exports a route
+//app.js imports it as people

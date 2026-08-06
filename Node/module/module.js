@@ -23,7 +23,6 @@ module.exports = {
 //OR
 module.exports.type = "person";
 //IMPORTING
-
 //const {namee , agee , fn} = require("./module"); wwhile destructuring with require names must be same.
 const { name: namee, age: agee, sayHello: fn } = require("./module");
 const type = require("./module").type;

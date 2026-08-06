@@ -19,3 +19,5 @@ app.all("*", (req, res) => {
 app.listen(5000, () => {
   console.log("server is listening on port 5000....");
 });
+
+//app.use => The `app.use` method is used to mount middleware functions at a specified path. In this case, it is used to serve static files from the 'public' directory. This means that any files in the 'public' directory can be accessed directly via their URL without needing to define specific routes for them. For example, if there is a file named 'style.css' in the 'public' directory, it can be accessed at `http://localhost:5000/style.css`.
